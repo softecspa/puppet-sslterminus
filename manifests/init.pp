@@ -1,6 +1,12 @@
 class sslterminus{
 
   if !defined(Class['nginx']) {
+
+    $proxy_conf_template = $::lsbdistcodename? {
+      'lucid' => 'nginx/conf.d/proxy.conf.erb',
+      default => 'nginx/conf.d/proxy.conf-prior-1.1.4.erb'
+    }
+
     class {'nginx':
       super_user              => true,
       worker_processes        => '2',
@@ -23,6 +29,7 @@ class sslterminus{
       ],
       confd_purge             => true,
       vhost_purge             => true,
+      proxy_conf_template     => $proxy_conf_template,
     }
 
     $my_hash = $::subnet_hash
