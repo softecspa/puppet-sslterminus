@@ -82,12 +82,18 @@ define sslterminus::domain(
   ]
   $real_raw_prepend =concat($redirection,$raw_prepend)
 
+  $ssl_listen_option = $::lsbdistcodename ?{
+    'lucid' => false,
+    default => true
+  }
+
   nginx::resource::vhost { "nginx-vhost-${name}":
     ensure                => $ensure,
     listen_ip             => $listen_ip,
     server_name           => $servernames,
     listen_port           => 443,
     ssl                   => true,
+    ssl_listen_option     => $ssl_listen_option,
     ssl_cert              => "${sslcert::ssl_path}/${ssl_certname}/sslcert.crt",
     ssl_key               => "${sslcert::ssl_path}/${ssl_certname}/sslkey.key",
     ssl_session_timeout   => '10m',
