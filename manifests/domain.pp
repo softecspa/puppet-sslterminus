@@ -41,9 +41,6 @@ define sslterminus::domain(
 )
 {
   #TODO: parameters check
-  if (!is_array($lines)) and ($lines != '') {
-    fail('lines must be an array')
-  }
   #TODO: parametrize ssl paths
 
   $ssl_certname = $sslcertname? {
@@ -68,12 +65,12 @@ define sslterminus::domain(
 
   if ! defined (Sslcert::Cert[$ssl_certname]) {
     sslcert::cert {$ssl_certname:
-      notify    => Service["nginx"],
+      notify    => Service['nginx'],
     }
   }
 
   $servernames_string=join($servernames, ' ')
-  $escaped_servernames = regsubst(regsubst(regsubst("${servernames_string}",'\ ','|','G'),'\.','\.','G'),'\*','.*','G')
+  $escaped_servernames = regsubst(regsubst(regsubst($servernames_string,'\ ','|','G'),'\.','\.','G'),'\*','.*','G')
 
   $redirection = [
     "if (\$host !~* \"${escaped_servernames}\") {",
