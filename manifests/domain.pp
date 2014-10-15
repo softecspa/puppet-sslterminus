@@ -64,7 +64,7 @@ define sslterminus::domain(
 
   if ! defined (Sslcert::Cert[$ssl_certname]) {
     sslcert::cert {$ssl_certname:
-      notify    => Service['nginx'],
+      notify      => Service['nginx'],
     }
   }
 
