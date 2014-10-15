@@ -51,7 +51,6 @@ define sslterminus::domain(
   validate_array($serveraliases)
 
   include sslterminus
-  include sslcert
 
   $domainname = $domain_name? {
     ''      => $name,
@@ -91,8 +90,8 @@ define sslterminus::domain(
     listen_port           => 443,
     ssl                   => true,
     ssl_listen_option     => $ssl_listen_option,
-    ssl_cert              => "${sslcert::ssl_path}/${ssl_certname}/sslcert.crt",
-    ssl_key               => "${sslcert::ssl_path}/${ssl_certname}/sslkey.key",
+    ssl_cert              => "/etc/ssl/${ssl_certname}/sslcert.crt",
+    ssl_key               => "/etc/ssl/${ssl_certname}/sslkey.key",
     ssl_session_timeout   => '10m',
     ssl_protocols         => 'SSLv3 TLSv1',
     ssl_ciphers           => 'HIGH:!ADH:!MD5',
