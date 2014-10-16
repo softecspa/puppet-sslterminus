@@ -58,7 +58,7 @@ define sslterminus::domain(
   }
 
   $servernames = $wildcard ? {
-    true  => concat( [ $domainname, "*.$domainname"],$serveraliases ),
+    true  => concat( [ $domainname, "*.${domainname}"],$serveraliases ),
     false => concat( [ $domainname ], $serveraliases )
   }
 
@@ -93,7 +93,7 @@ define sslterminus::domain(
     ssl_cert              => "/etc/ssl/${ssl_certname}/sslcert.crt",
     ssl_key               => "/etc/ssl/${ssl_certname}/sslkey.key",
     ssl_session_timeout   => '10m',
-    ssl_protocols         => 'SSLv3 TLSv1',
+    ssl_protocols         => 'TLSv1 TLSv1.1 TLSv1.2',
     ssl_ciphers           => 'HIGH:!ADH:!MD5',
     proxy                 => $proxy,
     proxy_read_timeout    => '90',
