@@ -24,6 +24,7 @@ class sslterminus{
       ],
       confd_purge             => true,
       vhost_purge             => true,
+      manage_repo             => false,
     }
 
     $my_hash = $::subnet_hash
