@@ -58,13 +58,13 @@ define sslterminus::domain(
   }
 
   $servernames = $wildcard ? {
-    true  => concat( [ $domainname, "*.$domainname"],$serveraliases ),
+    true  => concat( [ $domainname, "*.${domainname}"],$serveraliases ),
     false => concat( [ $domainname ], $serveraliases )
   }
 
   if ! defined (Sslcert::Cert[$ssl_certname]) {
     sslcert::cert {$ssl_certname:
-      notify    => Service['nginx'],
+      notify      => Service['nginx'],
     }
   }
 
@@ -93,8 +93,8 @@ define sslterminus::domain(
     ssl_cert              => "/etc/ssl/${ssl_certname}/sslcert.crt",
     ssl_key               => "/etc/ssl/${ssl_certname}/sslkey.key",
     ssl_session_timeout   => '10m',
-    ssl_protocols         => 'SSLv3 TLSv1',
-    ssl_ciphers           => 'HIGH:!ADH:!MD5',
+    ssl_protocols         => 'TLSv1 TLSv1.1 TLSv1.2',
+    ssl_ciphers           => '"EECDH+ECDSA+AESGCM EECDH+aRSA+AESGCM EECDH+ECDSA+SHA384 EECDH+ECDSA+SHA256 EECDH+aRSA+SHA384 EECDH+aRSA+SHA256 EECDH+aRSA+RC4 EECDH EDH+aRSA RC4 !aNULL !eNULL !LOW !3DES !MD5 !EXP !PSK !SRP !DSS"',
     proxy                 => $proxy,
     proxy_read_timeout    => '90',
     proxy_redirect        => 'off',
