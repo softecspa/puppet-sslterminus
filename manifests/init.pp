@@ -27,7 +27,7 @@ class sslterminus{
       manage_repo             => false,
     }
 
-    $my_hash = $::subnet_hash
+    $my_hash = $::subnet_softec_hash
 
     nginx::resource::geo {'from_softec':
       networks        => $my_hash,
