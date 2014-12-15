@@ -37,7 +37,8 @@ define sslterminus::domain(
   $client_max_body_size = '20m',
   $auth_basic           = undef,
   $auth_basic_user_file = undef,
-  $raw_prepend          = []
+  $raw_prepend          = [],
+  $proxy_read_timeout   = '90',
 )
 {
   #TODO: parameters check
@@ -96,7 +97,7 @@ define sslterminus::domain(
     ssl_protocols         => 'TLSv1 TLSv1.1 TLSv1.2',
     ssl_ciphers           => '"EECDH+ECDSA+AESGCM EECDH+aRSA+AESGCM EECDH+ECDSA+SHA384 EECDH+ECDSA+SHA256 EECDH+aRSA+SHA384 EECDH+aRSA+SHA256 EECDH+aRSA+RC4 EECDH EDH+aRSA RC4 !aNULL !eNULL !LOW !3DES !MD5 !EXP !PSK !SRP !DSS"',
     proxy                 => $proxy,
-    proxy_read_timeout    => '90',
+    proxy_read_timeout    => $proxy_read_timeout,
     proxy_redirect        => 'off',
     proxy_connect_timeout => '90',
     index_files           => [],
