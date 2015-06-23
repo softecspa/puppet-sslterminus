@@ -97,7 +97,7 @@ define sslterminus::domain(
     ssl_session_timeout   => '10m',
     ssl_protocols         => 'TLSv1 TLSv1.1 TLSv1.2',
     ssl_ciphers           => '"EECDH+ECDSA+AESGCDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA:ECDHE-ECDSA-AES256-SHA:DHE-RSA-AES256-GCM-SHA384:DHE-RSA-AES256-GCM-SHA:DHE-RSA-AES256-SHA256:DHE-RSA-AES256-SHA:!aNULL:!eNULL:!LOW:!3DES:!MD5:!EXP:!PSK:!SRP:!DSS"',
-    raw_append            => 'add_header Strict-Transport-Security "max-age=31536000; includeSubdomains"', 
+    raw_append            => 'add_header Strict-Transport-Security "max-age=31536000; includeSubdomains";', 
     proxy                 => $proxy,
     proxy_read_timeout    => $proxy_read_timeout,
     proxy_redirect        => 'off',
